@@ -1,4 +1,4 @@
-# ESP32ArduinoBeacon
+# ESP32BleAdvertise
 Simple library of a BLE advertise using ESP32 in Arduino
 
 ### Usage
