@@ -17,7 +17,7 @@ void loop() {
 
 ### Downloading and Installing
 Click on the green button "Clone or download" and download as a zip file.
-In Arduino Studio, click in Sketch > Include Library > Add .ZIP Library and select the file you've just downloaded.
+In Arduino Studio, click in `Sketch > Include Library > Add .ZIP Library` and select the file you've just downloaded.
 
 ### Tips
 Be aware of the limitations of the BLE broadcast in terms of the message size. Roughly, your message and device name combined should not be bigger than 20 bytes.
