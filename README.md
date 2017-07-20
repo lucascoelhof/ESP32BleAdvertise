@@ -24,4 +24,4 @@ Check out this Android app, works very well for debugging this application
 https://play.google.com/store/apps/details?id=uk.co.alt236.btlescan&hl=en
 
 ### Tips
-Be aware of the limitations of the BLE broadcast in terms of the message size. Roughly, your message and device name combined should not be bigger than 20 bytes.
+Be aware of the limitations of the BLE broadcast in terms of the message size. Roughly, your message and device name combined should not be bigger than 30 bytes.
