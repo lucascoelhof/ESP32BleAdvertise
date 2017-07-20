@@ -19,5 +19,9 @@ void loop() {
 Click on the green button "Clone or download" and download as a zip file.
 In Arduino Studio, click in `Sketch > Include Library > Add .ZIP Library` and select the file you've just downloaded.
 
+### Debugging and visualizing data
+Check out this Android app, works very well for debugging this application
+https://play.google.com/store/apps/details?id=uk.co.alt236.btlescan&hl=en
+
 ### Tips
 Be aware of the limitations of the BLE broadcast in terms of the message size. Roughly, your message and device name combined should not be bigger than 20 bytes.
