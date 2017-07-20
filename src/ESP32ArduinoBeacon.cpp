@@ -45,7 +45,7 @@ static esp_ble_adv_params_t _adv_params = {
         .adv_int_min         = 512,
         .adv_int_max         = 1024,
         .adv_type            = ADV_TYPE_NONCONN_IND,         // Excelent description of this parameter here: https://www.esp32.com/viewtopic.php?t=2267
-        .own_addr_type       = BLE_ADDR_TYPE_PUBLIC, //
+        .own_addr_type       = BLE_ADDR_TYPE_PUBLIC,
         .peer_addr           = {0x00, },
         .peer_addr_type      = BLE_ADDR_TYPE_PUBLIC,
         .channel_map         = ADV_CHNL_ALL,
@@ -139,19 +139,14 @@ bool SimpleBLE::advertise(String data) {
         .max_interval        = 1024,
         .appearance          = 0,
         .manufacturer_len    = data.length(),
-        .p_manufacturer_data = (uint8_t *) malloc(data.length()*sizeof(uint8_t)),
+        .p_manufacturer_data = (uint8_t *) malloc(data.length()*sizeof(uint8_t)),  //manufacturer data is what we will use to broadcast our info
         .service_data_len    = 0,
         .p_service_data      = NULL,
         .service_uuid_len    = 0,
         .p_service_uuid      = NULL,
         .flag                = (ESP_BLE_ADV_FLAG_NON_LIMIT_DISC)
     };
-
     memcpy(adv_data.p_manufacturer_data, data.c_str(), data.length());
-
-    log_e("sent message: ");
-    log_e(data.c_str());
-
 
     return _init_gap(local_name.c_str(), &adv_data);
 }
