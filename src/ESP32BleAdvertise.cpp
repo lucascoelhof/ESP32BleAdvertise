@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "ESP32ArduinoBeacon.h"
+#include "ESP32BleAdvertise.h"
 #include "esp32-hal-log.h"
 
 #include "bt.h"
