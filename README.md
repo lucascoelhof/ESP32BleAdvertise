@@ -5,7 +5,6 @@ Notice that this a very recent work and still under tests.
 ### Usage
 ```
 void setup() {
-    Serial.begin(115200);
     ble.begin("ESP32-BLE");  //sets the device name
 }
 
