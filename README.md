@@ -25,8 +25,7 @@ You will see the advertise data at "Manufacturer Specific Data".
 
 
 ### Tips
-Be aware of the limitations of the BLE broadcast in terms of the message size. Your advertise data should not be bigger than 8 bytes and the name of the device should not be bigger than 20 bytes.
+Be aware of the limitations of the BLE broadcast in terms of the message size. Your advertise data should not be bigger than 20 bytes and the name of the device should not be bigger than 20 bytes.
 
 ## TODOs
 + Being able to change the UUID
-+ Advertise more than 8 bytes
