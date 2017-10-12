@@ -3,7 +3,7 @@ SimpleBLE ble;
 
 void setup() {
     Serial.begin(115200);
-    ble.begin("3ab87438");  //sets the device name
+    ble.begin("ESP32-BLE");  //sets the device name
 }
 
 void loop() {
