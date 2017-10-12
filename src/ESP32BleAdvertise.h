@@ -46,6 +46,9 @@ class SimpleBLE {
 
         bool advertise(String data);
 
+        bool advertise(byte* data, int size);
+
+
         /**
          * Stop BLE Advertising
          *
