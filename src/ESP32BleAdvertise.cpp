@@ -22,9 +22,13 @@
 #include "esp_bt_defs.h"
 #include "esp_bt_main.h"
 
-esp_ble_adv_data_t adv_data; // data that will be advertised
 
-#define MAX_MANUFACTURER_DATA_SIZE 8
+#define MAX_MANUFACTURER_DATA_SIZE 20
+#define MAX_SERVICE_DATA_SIZE 11
+
+esp_ble_adv_data_t adv_data; // data that will be advertised
+byte dataBuffer[50];
+byte dataBuffer2[50];
 
 
 // Standard parameters
@@ -43,6 +47,8 @@ static esp_ble_adv_data_t _adv_config = {
         .p_service_uuid      = NULL,
         .flag                = (ESP_BLE_ADV_FLAG_NON_LIMIT_DISC|ESP_BLE_ADV_FLAG_BREDR_NOT_SPT)
 };
+
+
 
 // 
 static esp_ble_adv_params_t _adv_params = {
@@ -114,15 +120,6 @@ static bool _stop_gap()
 SimpleBLE::SimpleBLE()
 {
     local_name = "esp32";
-}
-
-SimpleBLE::~SimpleBLE(void)
-{
-    _stop_gap();
-}
-
-bool SimpleBLE::begin(String localName)
-{
     adv_data = {
         .set_scan_rsp        = false,
         .include_name        = true,
@@ -130,14 +127,24 @@ bool SimpleBLE::begin(String localName)
         .min_interval        = 512,
         .max_interval        = 1024,
         .appearance          = 0,
-        .manufacturer_len    = MAX_MANUFACTURER_DATA_SIZE,
-        .p_manufacturer_data = (uint8_t *) malloc(MAX_MANUFACTURER_DATA_SIZE*sizeof(uint8_t)),  //manufacturer data is what we will use to broadcast our info
+        .manufacturer_len    = 0,
+        .p_manufacturer_data = NULL,  //manufacturer data is what we will use to broadcast our info
         .service_data_len    = 0,
         .p_service_data      = NULL,
         .service_uuid_len    = 0,
         .p_service_uuid      = NULL,
         .flag                = (ESP_BLE_ADV_FLAG_NON_LIMIT_DISC)
     };
+}
+
+SimpleBLE::~SimpleBLE(void)
+{
+    clearAdvertiseData();
+    _stop_gap();
+}
+
+bool SimpleBLE::begin(String localName)
+{
     if(localName.length()){
         local_name = localName;
     }
@@ -150,16 +157,65 @@ void SimpleBLE::end()
 }
 
 bool SimpleBLE::advertise(String data) {
-	
-    memcpy(adv_data.p_manufacturer_data, data.c_str(), data.length());
-    adv_data.manufacturer_len = data.length();
-
-    return _init_gap(local_name.c_str(), &adv_data);
+    data.getBytes(dataBuffer, data.length()+1);
+    return advertise(dataBuffer, data.length());
 }
 
 bool SimpleBLE::advertise(byte* data, int size) {
-    memcpy(adv_data.p_manufacturer_data, data, size);
-    adv_data.manufacturer_len = size;
-
+    clearAdvertiseData();
+    fillManufacturerData(data, size);
     return _init_gap(local_name.c_str(), &adv_data);
 }
+
+bool SimpleBLE::serviceAdvertise(String data) {
+    data.getBytes(dataBuffer, data.length()+1);
+    return serviceAdvertise(dataBuffer, data.length());
+}
+
+bool SimpleBLE::serviceAdvertise(byte* data, int size) {
+    clearAdvertiseData();
+    fillServiceData(data, size);
+    return _init_gap(local_name.c_str(), &adv_data);
+}
+
+/* Advertising both Manufacturer Data and Service Data was not possible, I will continue testing and improving 
+bool SimpleBLE::advertise(String data_man, String data_ser) {
+    data_man.getBytes(dataBuffer, data_man.length()+1);
+    data_ser.getBytes(dataBuffer2, data_ser.length()+1);
+    return advertise(dataBuffer, data_man.length(), dataBuffer2, data_ser.length());
+}
+
+bool SimpleBLE::advertise(byte* data_man, int size_man, byte* data_ser, int size_ser) {
+    clearAdvertiseData();
+    fillManufacturerData(data_man, size_man);
+    fillServiceData(data_ser, size_ser);
+    return _init_gap(local_name.c_str(), &adv_data);
+} */
+
+void SimpleBLE::clearAdvertiseData() {
+    if(adv_data.p_manufacturer_data != NULL) {
+        free(adv_data.p_manufacturer_data);
+        adv_data.manufacturer_len = 0;
+    }
+    if(adv_data.p_service_data != NULL) {
+        free(adv_data.p_service_data);
+        adv_data.service_data_len = 0;
+    }
+}
+
+void SimpleBLE::fillManufacturerData(byte* data, int size) {
+    if(size > MAX_MANUFACTURER_DATA_SIZE)
+        size = MAX_MANUFACTURER_DATA_SIZE;
+    adv_data.p_manufacturer_data = (uint8_t *) malloc(size*sizeof(uint8_t));
+    adv_data.manufacturer_len = size;
+    memcpy(adv_data.p_manufacturer_data, data, size);
+}
+
+void SimpleBLE::fillServiceData(byte* data, int size) {
+    if(size > MAX_SERVICE_DATA_SIZE)
+        size = MAX_SERVICE_DATA_SIZE;
+    adv_data.p_service_data = (uint8_t *) malloc(size*sizeof(uint8_t));
+    adv_data.service_data_len = size;
+    memcpy(adv_data.p_service_data, data, size);
+}
+

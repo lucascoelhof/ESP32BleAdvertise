@@ -44,10 +44,53 @@ class SimpleBLE {
          */
         bool begin(String localName=String());
 
+        /**
+         * Advertises data on Manufacturer Data field
+         *
+         * @param[in] data  String with the message to be transmitted
+         *
+         * @return true on success
+         *
+         */
         bool advertise(String data);
 
+        /**
+         * Advertises data on Manufacturer Data field
+         *
+         * @param[in] data  byte array with the message to be transmitted
+         *
+         * @param[in] size  size of the byte array
+         *
+         * @return true on success
+         *
+         */
         bool advertise(byte* data, int size);
 
+        /**
+         * Advertises data on Service Data field
+         *
+         * @param[in] data  String with the message to be transmitted
+         *
+         * @return true on success
+         *
+         */
+        bool serviceAdvertise(String data);
+
+        /**
+         * Advertises data on Service Data field
+         *
+         * @param[in] data  byte array with the message to be transmitted
+         *
+         * @param[in] size  size of the byte array
+         *
+         * @return true on success
+         *
+         */
+        bool serviceAdvertise(byte* data, int size);
+
+        //bool advertise(byte* data_man, int size_man, byte* data_ser, int size_ser);
+
+        //bool advertise(String data_man, String data_ser); 
 
         /**
          * Stop BLE Advertising
@@ -55,6 +98,16 @@ class SimpleBLE {
          * @return none
          */
         void end(void);
+
+        private:
+            void clearAdvertiseData();
+
+            void fillManufacturerData(byte* data, int size);
+
+            void fillServiceData(byte* data, int size);
+
+
+        
 
     private:
         String local_name;
