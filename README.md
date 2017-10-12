@@ -1,11 +1,11 @@
 # ESP32BleAdvertise
-Simple library of a BLE advertise using ESP32 in Arduino
+Simple library of a BLE advertise using ESP32 in Arduino.
+Notice that this a very recent work and still under tests.
 
 ### Usage
 ```
 void setup() {
-    Serial.begin(115200);
-    ble.begin("3ab87438");  //sets the device name
+    ble.begin("ESP32-BLE");  //sets the device name
 }
 
 void loop() {
@@ -20,8 +20,14 @@ Click on the green button "Clone or download" and download as a zip file.
 In Arduino Studio, click in `Sketch > Include Library > Add .ZIP Library` and select the file you've just downloaded.
 
 ### Debugging and visualizing data
-Check out this Android app, works very well for debugging this application
+Check out this Android app, works very well for debugging this application:
 https://play.google.com/store/apps/details?id=uk.co.alt236.btlescan&hl=en
+You will see the advertise data at "Manufacturer Specific Data".
+
 
 ### Tips
-Be aware of the limitations of the BLE broadcast in terms of the message size. Roughly, your message and device name combined should not be bigger than 30 bytes.
+Be aware of the limitations of the BLE broadcast in terms of the message size. Your advertise data should not be bigger than 8 bytes and the name of the device should not be bigger than 20 bytes.
+
+## TODOs
++ Being able to change the UUID
++ Advertise more than 8 bytes
