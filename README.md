@@ -1,6 +1,5 @@
 # ESP32BleAdvertise
 Simple library of a BLE advertise using ESP32 in Arduino.
-Notice that this a very recent work and still under tests.
 
 ### Usage
 ```
