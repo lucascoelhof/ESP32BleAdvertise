@@ -2,6 +2,8 @@
 Simple library of a BLE advertise using ESP32 in Arduino.
 
 ### Usage
+
+Simple example:
 ```
 void setup() {
     ble.begin("ESP32-BLE");  //sets the device name
@@ -9,10 +11,24 @@ void setup() {
 
 void loop() {
     String str = String(random(0, 1000));
-    ble.advertise(str);   // advertises a random number
+    ble.advertise(str);   // advertises a random number on Manufacturer Data field
     delay(1000);
 }
 ```
+
+Service data:
+```
+void setup() {
+    ble.begin("ESP32-BLE");  //sets the device name
+}
+
+void loop() {
+    String str = String(random(0, 1000));
+    ble.serviceAdvertise(str);   // advertises a random number on Service Data field
+    delay(1000);
+}
+```
+
 
 ### Downloading and Installing
 Click on the green button "Clone or download" and download as a zip file.
