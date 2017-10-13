@@ -18,15 +18,8 @@ void loop() {
 
 Service data:
 ```
-void setup() {
-    ble.begin("ESP32-BLE");  //sets the device name
-}
-
-void loop() {
     String str = String(random(0, 1000));
     ble.serviceAdvertise(str);   // advertises a random number on Service Data field
-    delay(1000);
-}
 ```
 
 
