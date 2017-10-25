@@ -30,7 +30,7 @@ In Arduino Studio, click in `Sketch > Include Library > Add .ZIP Library` and se
 ### Debugging and visualizing data
 Check out this Android app, works very well for debugging this application:
 https://play.google.com/store/apps/details?id=uk.co.alt236.btlescan&hl=en
-You will see the advertise data at "Manufacturer Specific Data".
+You will see the advertise data at "Manufacturer Specific Data" or in "Service Data", depending on how you published your data.
 
 
 ### Tips
