@@ -195,10 +195,12 @@ bool SimpleBLE::advertise(byte* data_man, int size_man, byte* data_ser, int size
 void SimpleBLE::clearAdvertiseData() {
     if(adv_data.p_manufacturer_data != NULL) {
         free(adv_data.p_manufacturer_data);
+        adv_data.p_manufacturer_data = NULL;
         adv_data.manufacturer_len = 0;
     }
     if(adv_data.p_service_data != NULL) {
         free(adv_data.p_service_data);
+        adv_data.p_service_data = NULL;
         adv_data.service_data_len = 0;
     }
 }
